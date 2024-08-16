@@ -11,24 +11,32 @@ const shoppingListInDB = ref(database, "shoppingList");
 
 const inputFieldEl = document.getElementById("input-field");
 const addButtonEl = document.getElementById("add-button");
-const shoppingListEl = document.getElementById("shopping-list")
+const shoppingListEl = document.getElementById("shopping-list"); 
 
 addButtonEl.addEventListener("click", () => {
     const input = inputFieldEl.value;
     push(shoppingListInDB, input);
     clearInputFieldEl();
-    appendItemToShoppingListEl(); 
 });
 
 onValue(shoppingListInDB, function(snapshot){
-    let itemsArray = Object.values(snapshot.val())
-    console.log(itemsArray)
+    // turn items into an array 
+    let itemsArray = Object.values(snapshot.val()); 
+    clearShoppingListEl(); 
+    for (let i = 0; i < itemsArray.length; i++) {
+        appendItemToShoppingListEl(itemsArray[i]); 
+    }
+    
 })
 
+function clearShoppingListEl() {
+    shoppingListEl.innerHTML = "";
+}
+
 function clearInputFieldEl() {
-    inputFieldEl.value = ""
+    inputFieldEl.value = "";
 }
 
 function appendItemToShoppingListEl(itemValue) {
-    shoppingListEl.innerHTML += `<li>${itemValue}</li>`
+    shoppingListEl.innerHTML += `<li>${itemValue}</li>`;
 }

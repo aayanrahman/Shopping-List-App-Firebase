@@ -34,7 +34,7 @@ onValue(shoppingListInDB, function(snapshot){
     } else {
         shoppingListEl.innerHTML = "No Items Yet.."
     }
-    
+     
 })
 
 function clearShoppingListEl() {
